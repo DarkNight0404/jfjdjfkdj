@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fff8f5" />
+    <title>A little something for you</title>
+    <style>
+      :root {
+        --paper: #fffaf7;
+        --ink: #3f2935;
+        --muted: #846c77;
+        --rose: #ed6f91;
+        --coral: #f39a85;
+        --plum: #8e4d68;
+        --line: rgba(142, 77, 104, 0.16);
+        --shadow: 0 26px 70px rgba(111, 53, 77, 0.14);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        overflow-x: hidden;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 12% 12%, rgba(255, 198, 196, 0.32), transparent 24rem),
+          radial-gradient(circle at 90% 82%, rgba(255, 225, 175, 0.3), transparent 26rem),
+          var(--paper);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      body::before {
+        position: fixed;
+        z-index: -1;
+        inset: 0;
+        pointer-events: none;
+        content: "";
+        opacity: 0.25;
+        background-image: radial-gradient(rgba(142, 77, 104, 0.16) 0.7px, transparent 0.7px);
+        background-size: 18px 18px;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      .page {
+        position: relative;
+        width: min(1120px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .hero {
+        display: grid;
+        min-height: 100vh;
+        place-items: center;
+        padding: 70px 0 55px;
+      }
+
+      .hero-card {
+        position: relative;
+        width: min(700px, 100%);
+        padding: clamp(42px, 8vw, 82px) clamp(24px, 7vw, 72px);
+        overflow: hidden;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.62);
+        border: 1px solid rgba(255, 255, 255, 0.86);
+        border-radius: 36px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(16px);
+        animation: rise 900ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      }
+
+      .hero-card::after {
+        position: absolute;
+        width: 210px;
+        height: 210px;
+        right: -90px;
+        bottom: -100px;
+        content: "";
+        background: var(--coral);
+        border-radius: 50%;
+        opacity: 0.18;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--plum);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before,
+      .eyebrow::after {
+        width: 25px;
+        height: 1px;
+        content: "";
+        background: var(--rose);
+        opacity: 0.55;
+      }
+
+      .hero h1 {
+        max-width: 600px;
+        margin: 25px auto 18px;
+        color: var(--ink);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(3.1rem, 10vw, 6.8rem);
+        font-weight: 400;
+        letter-spacing: -0.07em;
+        line-height: 0.88;
+      }
+
+      .hero h1 em {
+        color: var(--rose);
+        font-weight: 400;
+      }
+
+      .intro {
+        max-width: 430px;
+        margin: 0 auto;
+        color: var(--muted);
+        font-size: 1.02rem;
+        line-height: 1.7;
+      }
+
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 34px;
+        padding: 16px 23px 16px 26px;
+        color: white;
+        cursor: pointer;
+        background: var(--plum);
+        border: 0;
+        border-radius: 999px;
+        box-shadow: 0 12px 25px rgba(142, 77, 104, 0.25);
+        transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+      }
+
+      .cta:hover,
+      .cta:focus-visible {
+        background: #753c56;
+        box-shadow: 0 16px 30px rgba(142, 77, 104, 0.32);
+        outline: none;
+        transform: translateY(-3px);
+      }
+
+      .cta span {
+        font-size: 1.15rem;
+        transition: transform 180ms ease;
+      }
+
+      .cta:hover span {
+        transform: translateX(4px);
+      }
+
+      .scroll-note {
+        position: absolute;
+        bottom: 25px;
+        left: 50%;
+        color: var(--muted);
+        font-size: 0.73rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        transform: translateX(-50%);
+        opacity: 0.72;
+      }
+
+      .scroll-note::after {
+        display: block;
+        width: 1px;
+        height: 26px;
+        margin: 9px auto 0;
+        content: "";
+        background: var(--rose);
+      }
+
+      .letter-section {
+        display: grid;
+        min-height: 100vh;
+        place-items: center;
+        padding: 100px 0 120px;
+      }
+
+      .letter-wrap {
+        width: min(760px, 100%);
+      }
+
+      .section-label {
+        margin-bottom: 18px;
+        color: var(--rose);
+        font-size: 0.73rem;
+        font-weight: 800;
+        letter-spacing: 0.2em;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .letter {
+        position: relative;
+        padding: clamp(34px, 8vw, 76px);
+        background: rgba(255, 255, 255, 0.82);
+        border: 1px solid var(--line);
+        border-radius: 5px 34px 5px 34px;
+        box-shadow: var(--shadow);
+      }
+
+      .letter::before,
+      .letter::after {
+        position: absolute;
+        width: 48px;
+        height: 48px;
+        content: "♡";
+        color: var(--rose);
+        font-family: Georgia, serif;
+        font-size: 2rem;
+        opacity: 0.65;
+      }
+
+      .letter::before {
+        top: 18px;
+        left: 24px;
+      }
+
+      .letter::after {
+        right: 24px;
+        bottom: 8px;
+      }
+
+      .date {
+        color: var(--muted);
+        font-size: 0.84rem;
+        letter-spacing: 0.08em;
+      }
+
+      .letter h2 {
+        margin: 35px 0 20px;
+        color: var(--plum);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(2rem, 6vw, 3.5rem);
+        font-weight: 400;
+        line-height: 1;
+      }
+
+      .letter-copy {
+        max-width: 570px;
+        color: #634956;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(1.06rem, 2vw, 1.22rem);
+        line-height: 1.8;
+        white-space: pre-line;
+      }
+
+      .signature {
+        margin-top: 32px;
+        color: var(--rose);
+        font-family: "Segoe Script", "Brush Script MT", cursive;
+        font-size: 1.7rem;
+      }
+
+      .tiny-heart {
+        display: inline-block;
+        color: var(--rose);
+        animation: pulse 1.7s ease-in-out infinite;
+      }
+
+      .floating-heart {
+        position: fixed;
+        z-index: 5;
+        pointer-events: none;
+        color: var(--rose);
+        font-size: 1.1rem;
+        animation: float-up 1.8s ease-out forwards;
+      }
+
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes pulse {
+        50% {
+          transform: scale(1.18);
+        }
+      }
+
+      @keyframes float-up {
+        0% {
+          opacity: 0;
+          transform: translate(-50%, 0) scale(0.6) rotate(-10deg);
+        }
+        18% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+          transform: translate(calc(-50% + var(--drift)), -115px) scale(1.2) rotate(15deg);
+        }
+      }
+
+      @media (max-width: 560px) {
+        .page {
+          width: min(100% - 24px, 1120px);
+        }
+
+        .hero {
+          padding-top: 28px;
+        }
+
+        .hero-card {
+          border-radius: 26px;
+        }
+
+        .scroll-note {
+          display: none;
+        }
+
+        .letter {
+          border-radius: 5px 24px 5px 24px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- EDIT ONLY THE TEXT INSIDE THIS SECTION -->
+    <script>
+      const message = {
+        pageTitle: "A little something for you",
+        introEyebrow: "For my loving girlfriend",
+        introTitle: "Maligayang <em>ka-?</em>",
+        introText: "Hmm? Ano kayang meron ngayon?",
+        buttonText: "Buksan mo na",
+        letterLabel: "Mensahe para sa imo",
+        date: "03 · 10 · 2026",
+        letterTitle: "To my favorite person,",
+        letterBody: `Maligayang kaarawan!
+
+Salamat sa pagmamahal na binibigay mo sa akin. Napakaswerte ko dahil lagi kang nandyan upang mahalin at tanggapin ako sa kahit anong oras at sitwasyon.
+
+Sana sa kaarawan mong ito ay bigyan ka ng mga mas kalamadong araw, kasiyahan, at ibigay sa'yo ang mga hinihiling mo.
+
+Sa'yo ang araw na 'to. Sana maramdaman mong mahal kita at maraming nagmamahal sa'yoo
+
+Ano, lunch bukas? Sakin na libre
+`,
+        signature: "Art Mwa♡",
+      };
+
+      document.title = message.pageTitle;
+    </script>
+
+    <main class="page">
+      <section class="hero" aria-labelledby="intro-title">
+        <div class="hero-card">
+          <div class="eyebrow" id="intro-eyebrow"></div>
+          <h1 id="intro-title"></h1>
+          <p class="intro" id="intro-text"></p>
+          <button class="cta" id="reveal-button" type="button">
+            <span id="button-text"></span>
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+        <div class="scroll-note">Sana naenjoy mo HAHAHA</div>
+      </section>
+
+      <section class="letter-section" id="letter" aria-labelledby="letter-title">
+        <div class="letter-wrap">
+          <p class="section-label" id="letter-label"></p>
+          <article class="letter">
+            <p class="date" id="letter-date"></p>
+            <h2 id="letter-title"></h2>
+            <p class="letter-copy" id="letter-body"></p>
+            <p class="signature" id="signature"></p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const setText = (id, text, html = false) => {
+        const element = document.getElementById(id);
+        if (html) element.innerHTML = text;
+        else element.textContent = text;
+      };
+
+      setText("intro-eyebrow", message.introEyebrow);
+      setText("intro-title", message.introTitle, true);
+      setText("intro-text", message.introText);
+      setText("button-text", message.buttonText);
+      setText("letter-label", message.letterLabel);
+      setText("letter-date", message.date);
+      setText("letter-title", message.letterTitle);
+      setText("letter-body", message.letterBody);
+      setText("signature", message.signature);
+
+      const button = document.getElementById("reveal-button");
+      button.addEventListener("click", () => {
+        document.getElementById("letter").scrollIntoView({ behavior: "smooth", block: "start" });
+        for (let index = 0; index < 8; index += 1) {
+          window.setTimeout(() => createHeart(button), index * 90);
+        }
+      });
+
+      document.addEventListener("click", (event) => {
+        if (event.target.closest("button")) return;
+        createHeart(event);
+      });
+
+      function createHeart(source) {
+        const heart = document.createElement("span");
+        const bounds = source.getBoundingClientRect
+          ? source.getBoundingClientRect()
+          : { left: source.clientX, width: 0, top: source.clientY };
+        heart.className = "floating-heart";
+        heart.textContent = Math.random() > 0.35 ? "♥" : "♡";
+        heart.style.left = `${bounds.left + bounds.width / 2}px`;
+        heart.style.top = `${bounds.top}px`;
+        heart.style.setProperty("--drift", `${Math.round(Math.random() * 80 - 40)}px`);
+        document.body.appendChild(heart);
+        heart.addEventListener("animationend", () => heart.remove());
+      }
+    </script>
+  </body>
+</html>
